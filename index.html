@@ -316,9 +316,16 @@
             background-color: #d8959b;
         }
 
+        .pass-container {
+            position: relative;
+            width: 100%;
+        }
+
         .pass-container img {
+            width: 100%;
             max-width: 100%;
             border-radius: 10px;
+            display: block;
             margin-bottom: 15px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
@@ -494,11 +501,14 @@
                         <p id="success-message" style="font-size: 13px; margin-bottom: 15px; line-height: 1.4;"></p>
                         
                         <div class="pass-container" id="pass-section">
-                            <!-- NOMBRES DINÁMICOS ARRIBA DEL PASE -->
-                            <p style="font-size: 14px; margin-bottom: 8px; color: #BB9885; font-weight: bold;" id="display-nombres"></p>
-                            
                             <p style="font-size: 13px; margin-bottom: 8px;"><strong>Tu Pase de Entrada:</strong></p>
-                            <img src="pase.jpg" alt="Pase de Invitación" id="pase-img">
+                            
+                            <!-- Imagen del pase -->
+                            <img src="" alt="Pase de Invitación" id="pase-img">
+                            
+                            <!-- Texto oculto auxiliar para el canvas -->
+                            <p id="display-nombres" class="hidden"></p>
+
                             <button id="btn-descargar" class="btn-rsvp" style="margin-bottom: 10px;">Descargar Pase</button>
                         </div>
                     </div>
@@ -589,7 +599,6 @@
             setTimeout(updateCountdown, 1000);
         })();
 
-        // URL de tu Apps Script configurada automáticamente
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwOxtGuxzJhrgvG1G1Age1tQWvzA8DFWlKJUEr5gUQAUuMYCILLG9etgIiKkpm8EsFF/exec';
 
         const rsvpForm = document.getElementById('rsvp-form');
@@ -662,7 +671,6 @@
             successTitle.textContent = data.titulo;
             successMessage.textContent = data.mensaje;
 
-            // Muestra los nombres de los invitados dinámicamente arriba del pase
             if (data.nombres) {
                 displayNombres.textContent = data.nombres;
             }
@@ -675,34 +683,36 @@
             }
         }
 
-        btnDescargar.addEventListener('click', async () => {
-            const imagePath = paseImg.src;
-            try {
-                const response = await fetch(imagePath);
-                const blob = await response.blob();
-                if (navigator.canShare && navigator.canShare({ files: [new File([blob], 'pase.jpg', { type: blob.type })] })) {
-                    await navigator.share({
-                        title: 'Tu Pase de Invitación',
-                        text: 'Aquí tienes tu código de acceso.',
-                        files: [new File([blob], 'pase.jpg', { type: blob.type })]
-                    });
-                } else {
-                    const blobUrl = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = blobUrl;
-                    a.download = 'pase_invitacion.jpg';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    window.URL.revokeObjectURL(blobUrl);
-                }
-            } catch (err) {
-                const a = document.createElement('a');
-                a.href = imagePath;
-                a.download = 'pase_invitacion.jpg';
-                a.target = '_blank';
-                a.click();
-            }
+        // Lógica de descarga idéntica a la que funcionaba en 1 persona (incrusta texto en la foto)
+        btnDescargar.addEventListener('click', () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = paseImg.naturalWidth;
+            canvas.height = paseImg.naturalHeight;
+            const ctx = canvas.getContext('2d');
+
+            // Dibuja la imagen del pase base en el canvas
+            ctx.drawImage(paseImg, 0, 0);
+
+            // Configura el estilo del texto impreso
+            const fontSize = Math.round(canvas.width * 0.04);
+            ctx.font = `bold ${fontSize}px Arial, sans-serif`;
+            ctx.fillStyle = '#83675a';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'bottom';
+
+            // Dibuja los nombres (puedes cambiar el 0.932 si necesitas subir o bajar el texto)
+            const x = canvas.width / 2;
+            const y = canvas.height * 0.932;
+            ctx.fillText(displayNombres.textContent, x, y);
+
+            // Genera la descarga de la imagen resultante
+            const dataURL = canvas.toDataURL('image/jpeg', 1.0);
+            const a = document.createElement('a');
+            a.href = dataURL;
+            a.download = 'Mi_Pase_Invitacion.jpg';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
         });
     </script>
 </body>

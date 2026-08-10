@@ -456,7 +456,7 @@
                             <label for="nombre1">Nombre y Apellidos (Obligatorio) *</label>
                            <input type="text" id="nombre1" name="nombre1" required placeholder="Ej. Fernanda López Cruz">
                            <small id="error-nombre1" style="color: #d9534f; font-size: 11px; display: none; margin-top: 4px;">Ingresa nombre y al menos dos apellidos.</small>
-                       </div>
+                        </div>
                         <div class="form-group">
                             <label for="asistencia1">¿Asistirá? *</label>
                            <select id="asistencia1" name="asistencia1" required>
@@ -464,15 +464,15 @@
                                 <option value="Sí asisto">Sí, ahí estaré</option>
                                 <option value="No asisto">No podré asistir</option>
                            </select>
-                       </div>
+                        </div>
 
-                       <!-- INVITADO 2 -->
-                       <h3>Invitado 2</h3>
-                       <div class="form-group">
-                           <label for="nombre2">Nombre y Apellidos (Obligatorio) *</label>
-                           <input type="text" id="nombre2" name="nombre2" required placeholder="Ej. Carlos Pérez Gómez">
-                           <small id="error-nombre2" style="color: #d9534f; font-size: 11px; display: none; margin-top: 4px;">Ingresa nombre y al menos dos apellidos.</small>
-                       </div>
+                        <!-- INVITADO 2 -->
+                        <h3>Invitado 2</h3>
+                        <div class="form-group">
+                            <label for="nombre2">Nombre y Apellidos (Obligatorio) *</label>
+                            <input type="text" id="nombre2" name="nombre2" required placeholder="Ej. Carlos Pérez Gómez">
+                            <small id="error-nombre2" style="color: #d9534f; font-size: 11px; display: none; margin-top: 4px;">Ingresa nombre y al menos dos apellidos.</small>
+                        </div>
                         <div class="form-group">
                             <label for="asistencia2">¿Asistirá? *</label>
                            <select id="asistencia2" name="asistencia2" required>
@@ -486,7 +486,7 @@
                         <div class="form-group" style="margin-top: 20px;">
                             <label for="mensaje">Mensaje o felicitación (Opcional)</label>
                            <textarea id="mensaje" name="mensaje" placeholder="Escribe unas palabras..."></textarea>
-                       </div>
+                        </div>
 
                         <button type="submit" id="btn-enviar" class="btn-rsvp">Enviar Confirmación</button>
                     </form>
@@ -496,7 +496,7 @@
                         <p id="success-message" style="font-size: 13px; margin-bottom: 15px; line-height: 1.4;"></p>
                         
                         <div class="pass-container" id="pass-section">
-                            <p style="font-size: 13px; margin-bottom: 8px;"><strong>Tu Pase de Entrada:</strong></p>
+                            <p style="font-size: 13px; margin-bottom: 8px;"><strong id="pass-label-title">Tu Pase de Entrada:</strong></p>
                             <!-- CANVAS DONDE SE DIBUJA EL PASE CON LOS NOMBRES -->
                             <canvas id="pase-canvas"></canvas>
                             <button id="btn-descargar" class="btn-rsvp" style="margin-bottom: 10px;">Descargar Pase</button>
@@ -667,11 +667,17 @@
             if (asiste1) nombresArr.push(inputNombre1.value.trim());
             if (asiste2) nombresArr.push(inputNombre2.value.trim());
 
+            // Si nadie asiste, ocultamos el contenedor del pase y ajustamos los textos
+            if (nombresArr.length === 0) {
+                passSection.classList.add('hidden');
+                return;
+            }
+
+            passSection.classList.remove('hidden');
             let imagenPaseSrc = (nombresArr.length === 2) ? 'pases.jpg' : 'pase.jpg';
             if (data.imagenPase) imagenPaseSrc = data.imagenPase;
 
             dibujarPaseEnCanvas(imagenPaseSrc, nombresArr);
-            passSection.classList.remove('hidden');
         }
 
         function dibujarPaseEnCanvas(imageSrc, nombres) {

@@ -667,7 +667,6 @@
             if (asiste1) nombresArr.push(inputNombre1.value.trim());
             if (asiste2) nombresArr.push(inputNombre2.value.trim());
 
-            // Selecciona 'pases.jpg' si hay 2 asistencias, o 'pase.jpg' si es 1
             let imagenPaseSrc = (nombresArr.length === 2) ? 'pases.jpg' : 'pase.jpg';
             if (data.imagenPase) imagenPaseSrc = data.imagenPase;
 
@@ -686,17 +685,19 @@
                 ctx.drawImage(img, 0, 0, paseCanvas.width, paseCanvas.height);
 
                 ctx.fillStyle = "#A37E6B"; 
-                ctx.font = "bold 38px 'Cinzel', serif"; 
+                ctx.font = "bold 36px 'SS Abigail', serif"; 
                 ctx.textAlign = "center";
 
                 let x = paseCanvas.width / 2;
-                let y = paseCanvas.height * 0.45; 
+                let y = paseCanvas.height * 0.88; 
 
-                if (nombres.length === 2) {
-                    ctx.fillText(nombres[0], x, y - 25);
-                    ctx.fillText(nombres[1], x, y + 35);
-                } else if (nombres.length === 1) {
-                    ctx.fillText(nombres[0], x, y);
+                let nombresMayus = nombres.map(n => n.toUpperCase());
+
+                if (nombresMayus.length === 2) {
+                    ctx.fillText(nombresMayus[0], x, y - 25);
+                    ctx.fillText(nombresMayus[1], x, y + 25);
+                } else if (nombresMayus.length === 1) {
+                    ctx.fillText(nombresMayus[0], x, y);
                 }
             };
 
@@ -708,14 +709,14 @@
                 ctx.fillRect(0, 0, paseCanvas.width, paseCanvas.height);
                 
                 ctx.fillStyle = "#A37E6B";
-                ctx.font = "bold 28px 'Cinzel', serif";
+                ctx.font = "bold 28px 'SS Abigail', serif";
                 ctx.textAlign = "center";
                 ctx.fillText("PASE DE ENTRADA", paseCanvas.width / 2, 100);
                 
                 ctx.font = "24px 'Montserrat', sans-serif";
                 ctx.fillStyle = "#333333";
                 nombres.forEach((nombre, index) => {
-                    ctx.fillText(nombre, paseCanvas.width / 2, 300 + (index * 60));
+                    ctx.fillText(nombre.toUpperCase(), paseCanvas.width / 2, 300 + (index * 60));
                 });
                 
                 ctx.font = "14px 'Montserrat', sans-serif";

@@ -1,747 +1,2259 @@
 <!DOCTYPE html>
+
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis 15 Años</title>
 
-    <meta property="og:title" content="Mis 15 Años">
-    <meta property="og:description" content="Te invito a celebrar este momento tan especial conmigo. Haz click para abrir tu invitación.">
-    <meta property="og:image" content="portada.jpg">
-    <meta property="og:url" content="">
-    <meta property="og:type" content="https://invitaendigitalweb-svg.github.io/xvbrithany">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="preconnect" href="https://fonts.cdnfonts.com">
-    <link href="https://fonts.cdnfonts.com/css/ss-abigail" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+<title>Mis 15 Años</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta property="og:title" content="Mis 15 Años">
+<meta property="og:description" content="Te invito a celebrar este momento tan especial conmigo. Haz click para abrir tu invitación.">
+<meta property="og:image" content="portada.jpg">
+<meta property="og:url" content="">
+<meta property="og:type" content="website">
 
-        body, html {
-            width: 100%;
-            height: 100%;
-            overflow-x: hidden;
-            background-color: #e8e2d8;
-            font-family: 'SS Abigail', serif;
-        }
+<link rel="preconnect" href="https://fonts.cdnfonts.com">
+<link href="https://fonts.cdnfonts.com/css/ss-abigail" rel="stylesheet">
 
-        #welcome-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #f9f6f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
-            transition: opacity 1s ease, visibility 1s ease;
-            cursor: pointer;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cinzel:wght@400;700&family=Montserrat:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-        #welcome-screen img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            object-position: center;
-        }
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
-        .invitation-wrapper {
-            width: 100%;
-            max-width: 480px;
-            margin: 0 auto;
-            background-color: #f9f6f0;
-            box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+<style>
 
-        #main-content {
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 1.5s ease;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+/* =====================================================
+   GENERAL
+===================================================== */
 
-        .section-img {
-            width: 100%;
-            background-color: #f9f6f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            line-height: 0;
-            font-size: 0;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        .section-img img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
+html,
+body{
+    width:100%;
+    min-height:100%;
+    overflow-x:hidden;
+}
 
-        .animate-zoom {
-            opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 1.2s ease-out, transform 1.2s ease-out;
-        }
+body{
+    background:#e8e2d8;
+    font-family:'SS Abigail',serif;
+}
 
-        .animate-zoom.active {
-            opacity: 1;
-            transform: scale(1);
-        }
 
-        .animate-float {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 1.2s ease-out, transform 1.2s ease-out;
-        }
+/* =====================================================
+   PORTADA / SOBRE
+===================================================== */
 
-        .animate-float.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+#welcome-screen{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    background:#f9f6f0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    transition:opacity 1s ease, visibility 1s ease;
+    cursor:pointer;
+}
 
-        .animate-flip-special {
-            opacity: 0;
-            transform: perspective(1000px) rotateX(25deg) scale(0.85);
-            filter: brightness(1.2);
-            transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), transform 1.4s cubic-bezier(0.16, 1, 0.3, 1), filter 1.4s ease;
-        }
+#welcome-screen img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    object-position:center;
+}
 
-        .animate-flip-special.active {
-            opacity: 1;
-            transform: perspective(1000px) rotateX(0deg) scale(1);
-            filter: brightness(1);
-        }
 
-        .countdown-section {
-            width: 100%;
-            padding: 40px 20px 30px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #ffffff;
-        }
+/* =====================================================
+   CONTENEDOR PRINCIPAL
+===================================================== */
 
-        .countdown {
-            display: flex;
-            gap: 35px;
-            align-items: flex-end;
-            justify-content: center;
-        }
+.invitation-wrapper{
+    width:100%;
+    max-width:480px;
+    margin:0 auto;
+    background:#f9f6f0;
+    box-shadow:0 0 25px rgba(0,0,0,.15);
+    min-height:100vh;
+}
 
-        .block {
-            text-align: center;
-            position: relative;
-        }
+#main-content{
+    opacity:0;
+    visibility:hidden;
+    transition:opacity 1.5s ease;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
 
-        .number {
-            font-size: 50px;
-            color: #BB9885;
-            line-height: 1;
-            letter-spacing: 2px;
-            text-shadow: 0 2px 8px rgba(187, 152, 133, 0.25);
-        }
 
-        .block::after {
-            content: "";
-            display: block;
-            width: 32px;
-            height: 1px;
-            background: rgba(187, 152, 133, 0.4);
-            margin: 8px auto 6px;
-        }
+/* =====================================================
+   IMÁGENES
+===================================================== */
 
-        .label {
-            font-size: 11px;
-            letter-spacing: 3px;
-            color: #A37E6B;
-        }
+.section-img{
+    width:100%;
+    background:#f9f6f0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    line-height:0;
+    font-size:0;
+}
 
-        .location-section, .reception-section {
-            width: 100%;
-            background-color: #F9EEEB;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px 20px 45px 20px;
-        }
+.section-img img{
+    width:100%;
+    height:auto;
+    display:block;
+}
 
-        .location-section img, .reception-section img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
 
-        .slider-container {
-            position: relative;
-            width: 100%;
-            height: 600px; 
-            overflow: hidden;
-            background: #f9f6f0;
-        }
+/* =====================================================
+   ANIMACIONES
+===================================================== */
 
-        .slider-container img {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transition: opacity 1.2s ease-in-out;
-        }
+.animate-zoom{
+    opacity:0;
+    transform:scale(.95);
+    transition:
+        opacity 1.2s ease-out,
+        transform 1.2s ease-out;
+}
 
-        .slider-container img.active {
-            opacity: 1;
-        }
+.animate-zoom.active{
+    opacity:1;
+    transform:scale(1);
+}
 
-        .location-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 28px;
-            background-color: #E5A6AC;
-            color: #ffffff;
-            font-family: 'SS Abigail', serif;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-decoration: none;
-            border-radius: 30px;
-            box-shadow: 0 4px 10px rgba(229, 166, 172, 0.3);
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
+.animate-float{
+    opacity:0;
+    transform:translateY(40px);
+    transition:
+        opacity 1.2s ease-out,
+        transform 1.2s ease-out;
+}
 
-        .location-btn:hover {
-            transform: scale(1.05);
-            background-color: #d8959b;
-        }
+.animate-float.active{
+    opacity:1;
+    transform:translateY(0);
+}
 
-        #rsvp-section-wrapper {
-            width: 100%;
-            background-color: #f9f6f0;
-            padding: 30px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-sizing: border-box;
-        }
 
-        .container-rsvp {
-            background-color: #ffffff;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            width: 100%;
-            box-sizing: border-box;
-            text-align: center;
-            font-family: 'Montserrat', sans-serif;
-            color: #333333;
-        }
+/* =====================================================
+   CONTADOR
+===================================================== */
 
-        .container-rsvp h2 {
-            margin-bottom: 20px;
-            color: #BB9885;
-            font-family: 'SS Abigail', serif;
-            font-size: 22px;
-            letter-spacing: 1px;
-        }
+.countdown-section{
+    width:100%;
+    padding:40px 20px 30px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#fff;
+}
 
-        .container-rsvp h3 {
-            margin: 15px 0 10px 0;
-            color: #A37E6B;
-            font-family: 'SS Abigail', serif;
-            font-size: 16px;
-            text-align: left;
-            border-bottom: 1px solid #f0e6e0;
-            padding-bottom: 5px;
-        }
+.countdown{
+    display:flex;
+    gap:35px;
+    align-items:flex-end;
+    justify-content:center;
+}
 
-        .container-rsvp .form-group {
-            margin-bottom: 15px;
-            text-align: left;
-        }
+.block{
+    text-align:center;
+    position:relative;
+}
 
-        .container-rsvp label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-            font-size: 12px;
-            color: #555555;
-        }
+.number{
+    font-size:50px;
+    color:#BB9885;
+    line-height:1;
+    letter-spacing:2px;
+    text-shadow:0 2px 8px rgba(187,152,133,.25);
+}
 
-        .container-rsvp input[type="text"], 
-        .container-rsvp textarea, 
-        .container-rsvp select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 13px;
-            background-color: #faf9f6;
-        }
+.block::after{
+    content:"";
+    display:block;
+    width:32px;
+    height:1px;
+    background:rgba(187,152,133,.4);
+    margin:8px auto 6px;
+}
 
-        .container-rsvp textarea {
-            resize: vertical;
-            height: 70px;
-        }
+.label{
+    font-size:11px;
+    letter-spacing:3px;
+    color:#A37E6B;
+}
 
-        .btn-rsvp {
-            background-color: #E5A6AC;
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 8px;
-            font-size: 14px;
-            cursor: pointer;
-            width: 100%;
-            font-family: 'SS Abigail', serif;
-            font-weight: 700;
-            letter-spacing: 1px;
-            transition: background 0.3s;
-        }
 
-        .btn-rsvp:hover {
-            background-color: #d8959b;
-        }
+/* =====================================================
+   UBICACIONES
+===================================================== */
 
-        .pass-container canvas {
-            width: 100%;
-            max-width: 100%;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            display: block;
-        }
+.location-section,
+.reception-section{
+    width:100%;
+    background:#F9EEEB;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:20px 20px 45px;
+}
 
-        .hidden {
-            opacity: 0;
-            visibility: hidden;
-            display: none !important;
-        }
+.location-section img,
+.reception-section img{
+    width:100%;
+    height:auto;
+    display:block;
+}
 
-        #music-control {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 45px;
-            height: 45px;
-            background-color: #E5A6AC;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            z-index: 999;
-            transition: transform 0.3s ease;
-        }
+.location-btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 28px;
+    background:#E5A6AC;
+    color:#fff;
+    font-family:'SS Abigail',serif;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:2px;
+    text-decoration:none;
+    border-radius:30px;
+    box-shadow:0 4px 10px rgba(229,166,172,.3);
+    transition:
+        transform .3s ease,
+        background-color .3s ease;
+}
 
-        #music-control:hover {
-            transform: scale(1.1);
-        }
+.location-btn:hover{
+    transform:scale(1.05);
+    background:#d8959b;
+}
 
-        #music-control svg {
-            width: 22px;
-            height: 22px;
-            fill: #ffffff;
-        }
 
-        @media(max-width: 480px) {
-            .invitation-wrapper {
-                max-width: 100%;
-                box-shadow: none;
-            }
-            .countdown { gap: 20px; }
-            .number { font-size: 42px; }
-            .label { font-size: 10px; }
-            .slider-container { height: 520px; }
-        }
-    </style>
+/* =====================================================
+   GALERÍA
+===================================================== */
+
+.gallery-title-section{
+    width:100%;
+    background:#f9f6f0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    line-height:0;
+    font-size:0;
+}
+
+.gallery-title-section img{
+    width:100%;
+    height:auto;
+    display:block;
+}
+
+.gallery-section{
+    width:100%;
+    background:#f9f6f0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:0;
+    margin:0;
+}
+
+.slider-container{
+    position:relative;
+    width:100%;
+    height:600px;
+    overflow:hidden;
+    background:#f9f6f0;
+}
+
+.slider-container img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0;
+    transition:opacity 1.2s ease-in-out;
+}
+
+.slider-container img.active{
+    opacity:1;
+}
+
+
+/* =====================================================
+   CONFIRMACIÓN / PASES
+===================================================== */
+
+#consulta-pases{
+    width:100%;
+    padding:35px 18px 50px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff9fa 0%,
+            #fcecef 45%,
+            #f7dfe5 100%
+        );
+
+    color:#5d424a;
+}
+
+.consulta-card{
+    width:100%;
+
+    background:rgba(255,255,255,.94);
+
+    border:1px solid #d5ad65;
+
+    border-radius:25px;
+
+    padding:35px 25px;
+
+    box-shadow:
+        0 15px 45px
+        rgba(128,72,89,.15);
+}
+
+.consulta-titulo{
+    text-align:center;
+
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:42px;
+
+    color:#a77b2f;
+
+    margin:0 0 8px;
+
+    line-height:1.1;
+}
+
+.consulta-subtitulo{
+    text-align:center;
+
+    font-family:'Montserrat',sans-serif;
+
+    font-size:13px;
+
+    line-height:1.6;
+
+    color:#80616a;
+
+    margin-bottom:12px;
+}
+
+.separador{
+    width:70px;
+    height:1px;
+
+    background:#caa35b;
+
+    margin:12px auto 28px;
+}
+
+
+/* =====================================================
+   GRUPOS
+===================================================== */
+
+.grupo{
+    margin-bottom:24px;
+}
+
+.etiqueta{
+    display:block;
+
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:22px;
+
+    color:#9c6d28;
+
+    margin-bottom:9px;
+}
+
+#consulta-pases input[type="text"]{
+    width:100%;
+
+    padding:14px 15px;
+
+    border-radius:12px;
+
+    border:1px solid #e0bdc7;
+
+    background:#fffafb;
+
+    outline:none;
+
+    font-family:'Montserrat',sans-serif;
+
+    color:#5d424a;
+
+    font-size:14px;
+}
+
+#consulta-pases input[type="text"]:focus{
+    border-color:#c9a154;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(201,161,84,.12);
+}
+
+
+/* =====================================================
+   OPCIONES ASISTENCIA
+===================================================== */
+
+.opciones{
+    display:flex;
+    gap:12px;
+}
+
+.opcion{
+    flex:1;
+}
+
+.opcion input{
+    display:none;
+}
+
+.opcion label{
+    display:block;
+
+    text-align:center;
+
+    padding:13px 8px;
+
+    border:1px solid #e0bdc7;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-family:'Montserrat',sans-serif;
+
+    font-size:13px;
+
+    background:#fffafb;
+
+    transition:.2s;
+}
+
+.opcion label:hover{
+    border-color:#bd8d3e;
+}
+
+.opcion input:checked + label{
+    background:#f2d5dc;
+
+    border-color:#bd8d3e;
+
+    color:#815d20;
+
+    font-weight:600;
+}
+
+
+/* =====================================================
+   BOTÓN ENVIAR
+===================================================== */
+
+.boton{
+    width:100%;
+
+    border:0;
+
+    border-radius:30px;
+
+    padding:16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c49a4d,
+            #e0bd70,
+            #b98536
+        );
+
+    color:white;
+
+    font-family:'Montserrat',sans-serif;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 8px 20px
+        rgba(174,126,48,.25);
+
+    transition:.2s;
+}
+
+.boton:hover{
+    transform:translateY(-1px);
+}
+
+.boton:disabled{
+    opacity:.6;
+    cursor:wait;
+}
+
+
+/* =====================================================
+   MENSAJE
+===================================================== */
+
+.mensaje{
+    display:none;
+
+    text-align:center;
+
+    margin-top:25px;
+
+    padding:18px;
+
+    border-radius:15px;
+
+    background:#fff6f8;
+
+    border:1px solid #e5c3ca;
+
+    line-height:1.6;
+
+    font-family:'Montserrat',sans-serif;
+
+    font-size:14px;
+}
+
+.mensaje.visible{
+    display:block;
+}
+
+
+/* =====================================================
+   PASE
+===================================================== */
+
+.pase-contenedor{
+    display:none;
+
+    margin-top:30px;
+}
+
+.pase-contenedor.visible{
+    display:block;
+}
+
+.pase{
+    background:
+        linear-gradient(
+            135deg,
+            #fffafb,
+            #fdf0f3
+        );
+
+    border:2px solid #c9a154;
+
+    border-radius:22px;
+
+    padding:30px 22px;
+
+    text-align:center;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.pase::before,
+.pase::after{
+    content:"";
+
+    position:absolute;
+
+    width:100px;
+    height:100px;
+
+    border:1px solid rgba(201,161,84,.25);
+
+    border-radius:50%;
+}
+
+.pase::before{
+    top:-60px;
+    left:-50px;
+}
+
+.pase::after{
+    bottom:-60px;
+    right:-50px;
+}
+
+.pase-titulo{
+    font-family:'Cormorant Garamond',serif;
+
+    color:#a77b2f;
+
+    font-size:35px;
+
+    margin-bottom:5px;
+}
+
+.pase-linea{
+    width:55px;
+    height:1px;
+
+    background:#c9a154;
+
+    margin:12px auto 20px;
+}
+
+.pase-nombres{
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:25px;
+
+    line-height:1.25;
+
+    color:#66434d;
+
+    margin-bottom:18px;
+}
+
+.pase-cantidad{
+    font-family:'Montserrat',sans-serif;
+
+    font-size:13px;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    color:#98723a;
+
+    margin-bottom:15px;
+}
+
+.codigo{
+    display:inline-block;
+
+    font-family:'Montserrat',sans-serif;
+
+    font-size:28px;
+
+    font-weight:600;
+
+    letter-spacing:7px;
+
+    color:#9c6d28;
+
+    padding:9px 16px;
+
+    border-top:1px solid #d4b477;
+
+    border-bottom:1px solid #d4b477;
+}
+
+
+/* =====================================================
+   BOTONES DEL PASE
+===================================================== */
+
+.botones-pase{
+    display:flex;
+
+    gap:10px;
+
+    margin-top:15px;
+}
+
+.boton-secundario{
+    flex:1;
+
+    padding:13px;
+
+    border-radius:25px;
+
+    border:1px solid #c9a154;
+
+    background:#fff;
+
+    color:#90682b;
+
+    cursor:pointer;
+
+    font-family:'Montserrat',sans-serif;
+
+    font-size:12px;
+
+    transition:.2s;
+}
+
+.boton-secundario:hover{
+    background:#fff7f8;
+    transform:translateY(-1px);
+}
+
+
+/* =====================================================
+   OCULTO
+===================================================== */
+
+.oculto{
+    display:none !important;
+}
+
+
+/* =====================================================
+   MÚSICA
+===================================================== */
+
+#music-control{
+    position:fixed;
+
+    bottom:20px;
+    right:20px;
+
+    width:45px;
+    height:45px;
+
+    background:#E5A6AC;
+
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    box-shadow:
+        0 4px 10px
+        rgba(0,0,0,.2);
+
+    cursor:pointer;
+
+    z-index:999;
+
+    transition:transform .3s ease;
+}
+
+#music-control:hover{
+    transform:scale(1.1);
+}
+
+#music-control svg{
+    width:22px;
+    height:22px;
+    fill:#fff;
+}
+
+
+/* =====================================================
+   MÓVIL
+===================================================== */
+
+@media(max-width:480px){
+
+    .invitation-wrapper{
+        max-width:100%;
+        box-shadow:none;
+    }
+
+    .countdown{
+        gap:20px;
+    }
+
+    .number{
+        font-size:42px;
+    }
+
+    .label{
+        font-size:10px;
+    }
+
+    .slider-container{
+        height:520px;
+    }
+
+    .consulta-card{
+        padding:28px 20px;
+    }
+
+    .consulta-titulo{
+        font-size:37px;
+    }
+
+    .pase-nombres{
+        font-size:22px;
+    }
+
+    .botones-pase{
+        flex-direction:column;
+    }
+
+}
+
+</style>
+
 </head>
+
 <body>
 
-    <div id="welcome-screen" title="Haz clic para abrir">
-        <img src="foto.jpg" alt="Sobre de invitación">
-    </div>
+<!-- =====================================================
+     SOBRE / PORTADA
+===================================================== -->
 
-    <div class="invitation-wrapper">
-        <div id="main-content">
-            <section class="section-img">
-                <img src="portada.jpg" alt="Portada de la invitación de Mis 15 Años">
-            </section>
+<div
+    id="welcome-screen"
+    title="Haz clic para abrir"
+>
 
-            <section class="section-img">
-                <img src="frase.jpg" alt="Frase de Mis 15 Años" class="animate-zoom">
-            </section>
+<img
+src="foto.jpg"
+alt="Sobre de invitación"
 
-            <section class="section-img">
-                <img src="fecha.jpg" alt="Fecha de Mis 15 Años" class="animate-zoom">
-            </section>
+>
 
-            <section class="countdown-section">
-                <div class="countdown">
-                    <div class="block">
-                        <div id="days" class="number">0</div>
-                        <div class="label">DÍAS</div>
-                    </div>
-                    <div class="block">
-                        <div id="hours" class="number">00</div>
-                        <div class="label">HORAS</div>
-                    </div>
-                    <div class="block">
-                        <div id="minutes" class="number">00</div>
-                        <div class="label">MINUTOS</div>
-                    </div>
-                    <div class="block">
-                        <div id="seconds" class="number">00</div>
-                        <div class="label">SEGUNDOS</div>
-                    </div>
-                </div>
-            </section>
+</div>
 
-            <section class="location-section">
-                <img src="ceremonia.jpg" alt="Detalles de ceremonia" class="animate-zoom">
-                <a href="https://www.google.com/maps/place/Parroquia+del+Sagrado+Coraz%C3%B3n+de+Jes%C3%BAs/@28.6262123,-106.0734464,859m/data=!3m2!1e3!4b1!4m6!3m5!1s0x86ea5caebcfb39a9:0x7142c0ef10e82b9b!8m2!3d28.6262123!4d-106.0711241!16s%2Fg%2F1tgdcw5w!18m1!1e1?entry=ttu" target="_blank" class="location-btn">VER UBICACIÓN</a>
-            </section>
+<!-- =====================================================
+     INVITACIÓN
+===================================================== -->
 
-            <section class="reception-section">
-                <img src="recepcion.jpg" alt="Detalles de recepción" class="animate-zoom">
-                <a href="https://www.google.com/maps/place/Quinta+kiri,+C.+Guadalupe+Posadas,+11+de+Febrero+Sur,+31066+Chihuahua,+Chih./data=!4m2!3m1!1s0x86ea5bac27293f75:0x64a47b49dd5ce364!18m1!1e1" target="_blank" class="location-btn">VER UBICACIÓN</a>
-            </section>
+<div class="invitation-wrapper">
 
-            <section class="section-img">
-                <img src="galeria.jpg" alt="Galería de Mis 15 Años" class="animate-zoom">
-            </section>
+<div id="main-content">
 
-            <section class="section-img">
-                <div class="slider-container animate-zoom">
-                    <img src="https://i.imgur.com/MSYBfYT.jpeg" class="active" alt="Foto 1">
-                    <img src="https://i.imgur.com/OwS4Q50.png" alt="Foto 2">
-                   <img src="https://i.imgur.com/L67IlOh.jpeg" alt="Foto 3">
-                </div>
-            </section>
+<!-- PORTADA -->
 
-            <section class="section-img">
-                <img src="vestimenta.jpg" alt="Código de vestimenta" class="animate-float">
-            </section>
+<section class="section-img">
 
-            <section class="section-img">
-                <img src="regalo.jpg" alt="Sugerencia de regalo" class="animate-float">
-            </section>
+<img
+src="portada.jpg"
+alt="Portada de la invitación"
 
-            <section class="section-img" style="flex-direction: column;">
-                <img src="asistencia.jpg" alt="Confirmar asistencia" class="animate-flip-special" style="margin-bottom: 0;">
-            </section>
+>
 
-            <div id="rsvp-section-wrapper" class="animate-flip-special">
-                <div class="container-rsvp">
-                    <form id="rsvp-form">
-                        <h2>Confirmación de Asistencia</h2>
-                        
-                       <!-- INVITADO 1 -->
-                        <h3>Invitado 1</h3>
-                        <div class="form-group">
-                            <label for="nombre1">Nombre y Apellidos (Obligatorio) *</label>
-                           <input type="text" id="nombre1" name="nombre1" required placeholder="Ej. Fernanda López Cruz">
-                           <small id="error-nombre1" style="color: #d9534f; font-size: 11px; display: none; margin-top: 4px;">Ingresa nombre y al menos dos apellidos.</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="asistencia1">¿Asistirá? *</label>
-                           <select id="asistencia1" name="asistencia1" required>
-                                <option value="" disabled selected>Selecciona una opción</option>
-                                <option value="Sí asisto">Sí, ahí estaré</option>
-                                <option value="No asisto">No podré asistir</option>
-                           </select>
-                        </div>
+</section>
 
-                        <!-- INVITADO 2 -->
-                        <h3>Invitado 2</h3>
-                        <div class="form-group">
-                            <label for="nombre2">Nombre y Apellidos (Obligatorio) *</label>
-                            <input type="text" id="nombre2" name="nombre2" required placeholder="Ej. Carlos Pérez Gómez">
-                            <small id="error-nombre2" style="color: #d9534f; font-size: 11px; display: none; margin-top: 4px;">Ingresa nombre y al menos dos apellidos.</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="asistencia2">¿Asistirá? *</label>
-                           <select id="asistencia2" name="asistencia2" required>
-                                <option value="" disabled selected>Selecciona una opción</option>
-                                <option value="Sí asisto">Sí, ahí estaré</option>
-                                <option value="No asisto">No podré asistir</option>
-                           </select>
-                        </div>
+<!-- FRASE -->
 
-                        <!-- MENSAJE -->
-                        <div class="form-group" style="margin-top: 20px;">
-                            <label for="mensaje">Mensaje o felicitación (Opcional)</label>
-                           <textarea id="mensaje" name="mensaje" placeholder="Escribe unas palabras..."></textarea>
-                        </div>
+<section class="section-img">
 
-                        <button type="submit" id="btn-enviar" class="btn-rsvp">Enviar Confirmación</button>
-                    </form>
+<img
+src="frase.jpg"
+alt="Frase"
+class="animate-zoom"
 
-                    <div id="success-screen" class="hidden">
-                        <h2 id="success-title">¡Gracias por confirmar!</h2>
-                        <p id="success-message" style="font-size: 13px; margin-bottom: 15px; line-height: 1.4;"></p>
-                        
-                        <div class="pass-container" id="pass-section">
-                            <p style="font-size: 13px; margin-bottom: 8px;"><strong id="pass-label-title">Tu Pase de Entrada:</strong></p>
-                            <!-- CANVAS DONDE SE DIBUJA EL PASE CON LOS NOMBRES -->
-                            <canvas id="pase-canvas"></canvas>
-                            <button id="btn-descargar" class="btn-rsvp" style="margin-bottom: 10px;">Descargar Pase</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+>
 
-    <audio id="bg-music" loop>
-        <source src="cancion.mp3" type="audio/mpeg">
-        Tu navegador no soporta el elemento de audio.
-    </audio>
+</section>
 
-    <div id="music-control" class="hidden" title="Reproducir / Pausar música">
-        <svg id="icon-speaker" viewBox="0 0 24 24">
-            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-        </svg>
-        <svg id="icon-pause" viewBox="0 0 24 24" style="display: none;">
-            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-        </svg>
-    </div>
+<!-- FECHA -->
 
-    <script>
-        const welcomeScreen = document.getElementById('welcome-screen');
-        const mainContent = document.getElementById('main-content');
-        const bgMusic = document.getElementById('bg-music');
-        const musicControl = document.getElementById('music-control');
-        const iconSpeaker = document.getElementById('icon-speaker');
-        const iconPause = document.getElementById('icon-pause');
+<section class="section-img">
 
-        let isPlaying = false;
+<img
+src="fecha.jpg"
+alt="Fecha"
+class="animate-zoom"
 
-        welcomeScreen.addEventListener('click', () => {
-            welcomeScreen.style.opacity = '0';
-            setTimeout(() => { welcomeScreen.style.display = 'none'; }, 1000);
-            mainContent.style.visibility = 'visible';
-            mainContent.style.opacity = '1';
-            musicControl.classList.remove('hidden');
-            bgMusic.play().then(() => {
+>
+
+</section>
+
+<!-- CONTADOR -->
+
+<section class="countdown-section">
+
+<div class="countdown">
+
+<div class="block">
+
+<div id="days" class="number">
+0
+</div>
+
+<div class="label">
+DÍAS
+</div>
+
+</div>
+
+<div class="block">
+
+<div id="hours" class="number">
+00
+</div>
+
+<div class="label">
+HORAS
+</div>
+
+</div>
+
+<div class="block">
+
+<div id="minutes" class="number">
+00
+</div>
+
+<div class="label">
+MINUTOS
+</div>
+
+</div>
+
+<div class="block">
+
+<div id="seconds" class="number">
+00
+</div>
+
+<div class="label">
+SEGUNDOS
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- CEREMONIA -->
+
+<section class="location-section">
+
+<img
+src="ceremonia.jpg"
+alt="Detalles de ceremonia"
+class="animate-zoom"
+
+>
+
+<a
+href="https://www.google.com/maps/place/Parroquia+del+Sagrado+Coraz%C3%B3n+de+Jes%C3%BAs/@28.6262123,-106.0734464,859m/data=!3m2!1e3!4b1!4m6!3m5!1s0x86ea5caebcfb39a9:0x7142c0ef10e82b9b!8m2!3d28.6262123!4d-106.0711241!16s%2Fg%2F1tgdcw5w!18m1!1e1?entry=ttu"
+target="_blank"
+class="location-btn"
+
+>
+
+```
+VER UBICACIÓN
+```
+
+</a>
+
+</section>
+
+<!-- RECEPCIÓN -->
+
+<section class="reception-section">
+
+<img
+src="recepcion.jpg"
+alt="Detalles de recepción"
+class="animate-zoom"
+
+>
+
+<a
+href="https://www.google.com/maps/place/Quinta+kiri,+C.+Guadalupe+Posadas,+11+de+Febrero+Sur,+31066+Chihuahua,+Chih./data=!4m2!3m1!1s0x86ea5bac27293f75:0x64a47b49dd5ce364!18m1!1e1"
+target="_blank"
+class="location-btn"
+
+>
+
+```
+VER UBICACIÓN
+```
+
+</a>
+
+</section>
+
+<!-- TÍTULO GALERÍA -->
+
+<section class="gallery-title-section">
+
+<img
+src="galeria.jpg"
+alt="Galería"
+class="animate-zoom"
+
+>
+
+</section>
+
+<!-- GALERÍA -->
+
+<section class="gallery-section">
+
+<div class="slider-container animate-zoom">
+
+<img
+src="https://i.imgur.com/MSYBfYT.jpeg"
+class="active"
+alt="Foto 1"
+
+>
+
+<img
+src="https://i.imgur.com/OwS4Q50.png"
+alt="Foto 2"
+
+>
+
+<img
+src="https://i.imgur.com/L67IlOh.jpeg"
+alt="Foto 3"
+
+>
+
+</div>
+
+</section>
+
+<!-- VESTIMENTA -->
+
+<section class="section-img">
+
+<img
+src="vestimenta.jpg"
+alt="Código de vestimenta"
+class="animate-float"
+
+>
+
+</section>
+
+<!-- REGALO -->
+
+<section class="section-img">
+
+<img
+src="regalo.jpg"
+alt="Sugerencia de regalo"
+class="animate-float"
+
+>
+
+</section>
+
+<!-- =====================================================
+     CONFIRMACIÓN Y PASE
+===================================================== -->
+
+<section id="consulta-pases">
+
+<div class="consulta-card">
+
+<h1 class="consulta-titulo">
+Confirmación
+</h1>
+
+<div class="consulta-subtitulo">
+Agradecemos confirmar su asistencia
+</div>
+
+<div class="separador"></div>
+
+<form id="formulario">
+
+<!-- INVITADO 1 -->
+
+<div class="grupo">
+
+<label class="etiqueta">
+Nombre 1 invitado
+</label>
+
+<input
+type="text"
+id="invitado1"
+placeholder="Nombre y apellidos"
+required
+autocomplete="name"
+
+>
+
+</div>
+
+<div class="grupo">
+
+<label class="etiqueta">
+Asistencia
+</label>
+
+<div class="opciones">
+
+<div class="opcion">
+
+<input
+type="radio"
+name="asistencia1"
+id="si1"
+value="SI"
+required
+
+>
+
+<label for="si1">
+Sí asistiré
+</label>
+
+</div>
+
+<div class="opcion">
+
+<input
+type="radio"
+name="asistencia1"
+id="no1"
+value="NO"
+
+>
+
+<label for="no1">
+No asistiré
+</label>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- INVITADO 2 -->
+
+<div class="grupo">
+
+<label class="etiqueta">
+Nombre 2 invitado
+</label>
+
+<input
+type="text"
+id="invitado2"
+placeholder="Nombre y apellidos"
+autocomplete="name"
+
+>
+
+</div>
+
+<div class="grupo">
+
+<label class="etiqueta">
+Asistencia
+</label>
+
+<div class="opciones">
+
+<div class="opcion">
+
+<input
+type="radio"
+name="asistencia2"
+id="si2"
+value="SI"
+
+>
+
+<label for="si2">
+Sí asistiré
+</label>
+
+</div>
+
+<div class="opcion">
+
+<input
+type="radio"
+name="asistencia2"
+id="no2"
+value="NO"
+
+>
+
+<label for="no2">
+No asistiré
+</label>
+
+</div>
+
+</div>
+
+</div>
+
+<button
+class="boton"
+id="botonEnviar"
+type="submit"
+
+>
+
+Enviar confirmación </button>
+
+</form>
+
+<!-- MENSAJE -->
+
+<div
+    id="mensaje"
+    class="mensaje"
+>
+</div>
+
+<!-- PASE -->
+
+<div
+    id="paseContenedor"
+    class="pase-contenedor"
+>
+
+<div
+    id="pase"
+    class="pase"
+>
+
+<div class="pase-titulo">
+Pase de entrada
+</div>
+
+<div class="pase-linea"></div>
+
+<div
+    id="paseNombres"
+    class="pase-nombres"
+>
+</div>
+
+<div
+    id="paseCantidad"
+    class="pase-cantidad"
+>
+</div>
+
+<div
+    id="paseCodigo"
+    class="codigo"
+>
+</div>
+
+</div>
+
+<div class="botones-pase">
+
+<button
+class="boton-secundario"
+onclick="descargarPase()"
+
+>
+
+Guardar pase </button>
+
+<button
+class="boton-secundario"
+onclick="volverEditar()"
+
+>
+
+Cambiar asistencia </button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+</div>
+
+<!-- =====================================================
+     MÚSICA
+===================================================== -->
+
+<audio
+id="bg-music"
+loop
+
+>
+
+<source
+src="cancion.mp3"
+type="audio/mpeg"
+
+>
+
+Tu navegador no soporta el elemento de audio.
+
+</audio>
+
+<div
+    id="music-control"
+    class="oculto"
+    title="Reproducir / Pausar música"
+>
+
+<svg
+id="icon-speaker"
+viewBox="0 0 24 24"
+
+>
+
+<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+
+</svg>
+
+<svg
+id="icon-pause"
+viewBox="0 0 24 24"
+style="display:none;"
+
+>
+
+<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+
+</svg>
+
+</div>
+
+<script>
+
+
+/* =====================================================
+   PORTADA Y MÚSICA
+===================================================== */
+
+const welcomeScreen =
+document.getElementById(
+    'welcome-screen'
+);
+
+const mainContent =
+document.getElementById(
+    'main-content'
+);
+
+const bgMusic =
+document.getElementById(
+    'bg-music'
+);
+
+const musicControl =
+document.getElementById(
+    'music-control'
+);
+
+const iconSpeaker =
+document.getElementById(
+    'icon-speaker'
+);
+
+const iconPause =
+document.getElementById(
+    'icon-pause'
+);
+
+
+let isPlaying = false;
+
+
+welcomeScreen.addEventListener(
+    'click',
+    () => {
+
+        welcomeScreen.style.opacity =
+            '0';
+
+        setTimeout(
+            () => {
+
+                welcomeScreen.style.display =
+                    'none';
+
+            },
+            1000
+        );
+
+
+        mainContent.style.visibility =
+            'visible';
+
+        mainContent.style.opacity =
+            '1';
+
+
+        musicControl.classList.remove(
+            'oculto'
+        );
+
+
+        bgMusic.play()
+        .then(
+            () => {
+
                 isPlaying = true;
+
                 updateMusicIcon();
-            }).catch(error => { console.log("Bloqueado:", error); });
-        });
 
-        musicControl.addEventListener('click', () => {
-            if (isPlaying) { bgMusic.pause(); isPlaying = false; }
-            else { bgMusic.play(); isPlaying = true; }
-            updateMusicIcon();
-        });
-
-        function updateMusicIcon() {
-            if (isPlaying) {
-                iconSpeaker.style.display = 'none';
-                iconPause.style.display = 'block';
-            } else {
-                iconSpeaker.style.display = 'block';
-                iconPause.style.display = 'none';
             }
+        )
+        .catch(
+            error => {
+
+                console.log(
+                    "Reproducción automática bloqueada:",
+                    error
+                );
+
+            }
+        );
+
+    }
+);
+
+
+musicControl.addEventListener(
+    'click',
+    () => {
+
+        if(isPlaying){
+
+            bgMusic.pause();
+
+            isPlaying = false;
+
+        }
+        else{
+
+            bgMusic.play();
+
+            isPlaying = true;
+
         }
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-        }, { threshold: 0.1 });
+        updateMusicIcon();
 
-        document.querySelectorAll('.animate-zoom, .animate-float, .animate-flip-special').forEach(el => observer.observe(el));
+    }
+);
 
-        const sliderImages = document.querySelectorAll('.slider-container img');
-        let currentSlide = 0;
-        setInterval(() => {
-            sliderImages[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % sliderImages.length;
-            sliderImages[currentSlide].classList.add('active');
-        }, 3000);
 
-        const DATE_TARGET = new Date(2026, 7, 22, 15, 0, 0);
-        const days = document.getElementById('days'), hours = document.getElementById('hours'), minutes = document.getElementById('minutes'), seconds = document.getElementById('seconds');
-        const MS = 1000, MIN = MS * 60, H = MIN * 60, D = H * 24;
-        function format(n){ return n < 10 ? '0' + n : n; }
+function updateMusicIcon(){
 
-        (function updateCountdown(){
-            const now = new Date();
-            let dur = DATE_TARGET - now;
-            if(dur < 0) dur = 0;
-            days.textContent = Math.floor(dur / D);
-            hours.textContent = format(Math.floor((dur % D) / H));
-            minutes.textContent = format(Math.floor((dur % H) / MIN));
-            seconds.textContent = format(Math.floor((dur % MIN) / MS));
-            setTimeout(updateCountdown, 1000);
-        })();
+    if(isPlaying){
 
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwOxtGuxzJhrgvG1G1Age1tQWvzA8DFWlKJUEr5gUQAUuMYCILLG9etgIiKkpm8EsFF/exec';
+        iconSpeaker.style.display =
+            'none';
 
-        const rsvpForm = document.getElementById('rsvp-form');
-        const successScreen = document.getElementById('success-screen');
-        const successTitle = document.getElementById('success-title');
-        const successMessage = document.getElementById('success-message');
-        const passSection = document.getElementById('pass-section');
-        const btnDescargar = document.getElementById('btn-descargar');
-        const inputNombre1 = document.getElementById('nombre1');
-        const inputNombre2 = document.getElementById('nombre2');
-        const errorNombre1 = document.getElementById('error-nombre1');
-        const errorNombre2 = document.getElementById('error-nombre2');
-        const paseCanvas = document.getElementById('pase-canvas');
+        iconPause.style.display =
+            'block';
 
-        function validarNombreCompleto(texto) {
-            return texto.trim().split(/\s+/).length >= 3;
-        }
+    }
+    else{
 
-        rsvpForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
+        iconSpeaker.style.display =
+            'block';
 
-            const n1 = inputNombre1.value.trim();
-            const n2 = inputNombre2.value.trim();
-            let valido = true;
+        iconPause.style.display =
+            'none';
 
-            if (!validarNombreCompleto(n1)) { errorNombre1.style.display = 'block'; valido = false; } else { errorNombre1.style.display = 'none'; }
-            if (!validarNombreCompleto(n2)) { errorNombre2.style.display = 'block'; valido = false; } else { errorNombre2.style.display = 'none'; }
+    }
 
-            if (!valido) return;
+}
 
-            const btnEnviar = document.getElementById('btn-enviar');
-            btnEnviar.disabled = true;
-            btnEnviar.textContent = 'Verificando registro...';
 
-            const datos = {
-               nombre1: n1,
-               asistencia1: document.getElementById('asistencia1').value,
-               nombre2: n2,
-               asistencia2: document.getElementById('asistencia2').value,
-               mensaje: document.getElementById('mensaje').value.trim()
-            };
+/* =====================================================
+   ANIMACIONES
+===================================================== */
 
-            try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify(datos)
-                });
-                const result = await response.json();
+const observerOptions = {
+    threshold:.1
+};
 
-                if (result.status === "success") {
-                    mostrarPantallaExito(result);
-                } else {
-                   alert('Hubo un error al registrar: ' + (result.message || ''));
-                   btnEnviar.disabled = false;
-                   btnEnviar.textContent = 'Enviar Confirmación';
+
+const observer =
+new IntersectionObserver(
+    (entries) => {
+
+        entries.forEach(
+            entry => {
+
+                if(
+                    entry.isIntersecting
+                ){
+
+                    entry.target.classList
+                        .add('active');
+
                 }
-            } catch (error) {
-               console.error(error);
-               alert('Error de conexión con el servidor.');
-               btnEnviar.disabled = false;
-               btnEnviar.textContent = 'Enviar Confirmación';
+
             }
-        });
+        );
 
-        function mostrarPantallaExito(data) {
-            rsvpForm.classList.add('hidden');
-            successScreen.classList.remove('hidden');
+    },
+    observerOptions
+);
 
-            successTitle.textContent = data.titulo;
-            successMessage.textContent = data.mensaje;
 
-            const asiste1 = document.getElementById('asistencia1').value === "Sí asisto";
-            const asiste2 = document.getElementById('asistencia2').value === "Sí asisto";
-            
-            let nombresArr = [];
-            if (asiste1) nombresArr.push(inputNombre1.value.trim());
-            if (asiste2) nombresArr.push(inputNombre2.value.trim());
+document
+.querySelectorAll(
+    '.animate-zoom, .animate-float'
+)
+.forEach(
+    el => {
 
-            // Si nadie asiste, ocultamos el contenedor del pase y ajustamos los textos
-            if (nombresArr.length === 0) {
-                passSection.classList.add('hidden');
+        observer.observe(el);
+
+    }
+);
+
+
+/* =====================================================
+   GALERÍA
+===================================================== */
+
+const sliderImages =
+document.querySelectorAll(
+    '.slider-container img'
+);
+
+
+let currentSlide = 0;
+
+
+setInterval(
+    () => {
+
+        if(
+            sliderImages.length <= 1
+        ){
+
+            return;
+
+        }
+
+
+        sliderImages[
+            currentSlide
+        ].classList.remove(
+            'active'
+        );
+
+
+        currentSlide =
+            (
+                currentSlide + 1
+            ) %
+            sliderImages.length;
+
+
+        sliderImages[
+            currentSlide
+        ].classList.add(
+            'active'
+        );
+
+    },
+    3000
+);
+
+
+/* =====================================================
+   CUENTA REGRESIVA
+===================================================== */
+
+const DATE_TARGET =
+new Date(
+    2026,
+    7,
+    22,
+    15,
+    0,
+    0
+);
+
+
+const days =
+document.getElementById(
+    'days'
+);
+
+const hours =
+document.getElementById(
+    'hours'
+);
+
+const minutes =
+document.getElementById(
+    'minutes'
+);
+
+const seconds =
+document.getElementById(
+    'seconds'
+);
+
+
+const MS = 1000;
+const MIN = MS * 60;
+const H = MIN * 60;
+const D = H * 24;
+
+
+function format(n){
+
+    return n < 10
+        ? '0' + n
+        : n;
+
+}
+
+
+(function updateCountdown(){
+
+    const now =
+        new Date();
+
+    let dur =
+        DATE_TARGET - now;
+
+
+    if(dur < 0){
+
+        dur = 0;
+
+    }
+
+
+    days.textContent =
+        Math.floor(
+            dur / D
+        );
+
+
+    hours.textContent =
+        format(
+            Math.floor(
+                (dur % D) / H
+            )
+        );
+
+
+    minutes.textContent =
+        format(
+            Math.floor(
+                (dur % H) / MIN
+            )
+        );
+
+
+    seconds.textContent =
+        format(
+            Math.floor(
+                (dur % MIN) / MS
+            )
+        );
+
+
+    setTimeout(
+        updateCountdown,
+        1000
+    );
+
+})();
+
+
+/* =====================================================
+   API DE GOOGLE APPS SCRIPT
+===================================================== */
+
+const API_URL =
+'https://script.google.com/macros/s/AKfycbynMO0TS-5heOseGgJ65PaPA1V7qUO2IVTHc5K2TDxvs7S6yTspN693CSlGKrTBiz1i/exec';
+
+
+/* =====================================================
+   JSONP
+===================================================== */
+
+function llamarAPI(parametros) {
+
+    return new Promise(
+        (resolve, reject) => {
+
+            const callbackName =
+                'respuesta_' +
+                Date.now() +
+                '_' +
+                Math.floor(
+                    Math.random() * 10000
+                );
+
+
+            const script =
+                document.createElement(
+                    'script'
+                );
+
+
+            const query =
+                new URLSearchParams({
+                    ...parametros,
+                    callback: callbackName
+                });
+
+
+            const tiempoLimite =
+                setTimeout(
+                    () => {
+
+                        limpiar();
+
+                        reject(
+                            new Error(
+                                'La solicitud tardó demasiado.'
+                            )
+                        );
+
+                    },
+                    15000
+                );
+
+
+            window[callbackName] =
+                function(data) {
+
+                    clearTimeout(
+                        tiempoLimite
+                    );
+
+                    limpiar();
+
+                    resolve(data);
+
+                };
+
+
+            function limpiar() {
+
+                delete window[
+                    callbackName
+                ];
+
+
+                if(script.parentNode){
+
+                    script
+                    .parentNode
+                    .removeChild(
+                        script
+                    );
+
+                }
+
+            }
+
+
+            script.onerror =
+                function() {
+
+                    clearTimeout(
+                        tiempoLimite
+                    );
+
+                    limpiar();
+
+                    reject(
+                        new Error(
+                            'No fue posible conectar con el servidor.'
+                        )
+                    );
+
+                };
+
+
+            script.src =
+                API_URL +
+                '?' +
+                query.toString();
+
+
+            document.body.appendChild(
+                script
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   FORMULARIO
+===================================================== */
+
+document
+.getElementById('formulario')
+.addEventListener(
+    'submit',
+    async function(e) {
+
+        e.preventDefault();
+
+
+        const boton =
+            document.getElementById(
+                'botonEnviar'
+            );
+
+
+        boton.disabled = true;
+
+        boton.textContent =
+            'Enviando...';
+
+
+        const invitado1 =
+            document
+            .getElementById('invitado1')
+            .value
+            .trim();
+
+
+        const invitado2 =
+            document
+            .getElementById('invitado2')
+            .value
+            .trim();
+
+
+        const asistencia1 =
+            document
+            .querySelector(
+                'input[name="asistencia1"]:checked'
+            )?.value || '';
+
+
+        const asistencia2Elemento =
+            document
+            .querySelector(
+                'input[name="asistencia2"]:checked'
+            );
+
+
+        const asistencia2 =
+            asistencia2Elemento
+            ? asistencia2Elemento.value
+            : '';
+
+
+        /*
+         * Si hay nombre 2,
+         * debe indicar asistencia.
+         */
+
+        if(
+            invitado2 &&
+            !asistencia2
+        ){
+
+            mostrarMensaje(
+                'Selecciona la asistencia del invitado 2.',
+                false
+            );
+
+
+            boton.disabled = false;
+
+            boton.textContent =
+                'Enviar confirmación';
+
+            return;
+
+        }
+
+
+        try{
+
+            const respuesta =
+                await llamarAPI({
+
+                    accion:
+                        'confirmar',
+
+                    invitado1:
+                        invitado1,
+
+                    asistencia1:
+                        asistencia1,
+
+                    invitado2:
+                        invitado2,
+
+                    asistencia2:
+                        asistencia2
+
+                });
+
+
+            if(
+                !respuesta.ok
+            ){
+
+                mostrarMensaje(
+                    respuesta.mensaje,
+                    false
+                );
+
                 return;
+
             }
 
-            passSection.classList.remove('hidden');
-            let imagenPaseSrc = (nombresArr.length === 2) ? 'pases.jpg' : 'pase.jpg';
-            if (data.imagenPase) imagenPaseSrc = data.imagenPase;
 
-            dibujarPaseEnCanvas(imagenPaseSrc, nombresArr);
-        }
+            /*
+             * NADIE ASISTE
+             */
 
-        function dibujarPaseEnCanvas(imageSrc, nombres) {
-            const ctx = paseCanvas.getContext('2d');
-            const img = new Image();
-            img.crossOrigin = "anonymous";
-            
-            img.onload = () => {
-                paseCanvas.width = img.naturalWidth || 800;
-                paseCanvas.height = img.naturalHeight || 1200;
-                ctx.drawImage(img, 0, 0, paseCanvas.width, paseCanvas.height);
+            if(
+                Number(
+                    respuesta.pases
+                ) === 0
+            ){
 
-                ctx.fillStyle = "#A37E6B"; 
-                ctx.font = "bold 36px 'SS Abigail', serif"; 
-                ctx.textAlign = "center";
+                mostrarMensaje(
+                    respuesta.mensaje,
+                    true
+                );
 
-                let x = paseCanvas.width / 2;
-                let y = paseCanvas.height * 0.88; 
 
-                let nombresMayus = nombres.map(n => n.toUpperCase());
+                document
+                .getElementById(
+                    'paseContenedor'
+                )
+                .classList
+                .remove(
+                    'visible'
+                );
 
-                if (nombresMayus.length === 2) {
-                    ctx.fillText(nombresMayus[0], x, y - 25);
-                    ctx.fillText(nombresMayus[1], x, y + 25);
-                } else if (nombresMayus.length === 1) {
-                    ctx.fillText(nombresMayus[0], x, y);
+
+                return;
+
+            }
+
+
+            /*
+             * MOSTRAR PASE
+             */
+
+            mostrarMensaje(
+                respuesta.mensaje,
+                true
+            );
+
+
+            let nombres = '';
+
+
+            if(
+                respuesta.asistencia1 ===
+                'SI'
+            ){
+
+                nombres +=
+                    escaparHTML(
+                        respuesta.invitado1
+                    );
+
+            }
+
+
+            if(
+                respuesta.invitado2 &&
+                respuesta.asistencia2 ===
+                'SI'
+            ){
+
+                if(nombres){
+
+                    nombres +=
+                        '<br>';
+
                 }
-            };
 
-            img.onerror = () => {
-                console.error("No se pudo cargar la imagen: " + imageSrc);
-                paseCanvas.width = 600;
-                paseCanvas.height = 800;
-                ctx.fillStyle = "#fdfbf7";
-                ctx.fillRect(0, 0, paseCanvas.width, paseCanvas.height);
-                
-                ctx.fillStyle = "#A37E6B";
-                ctx.font = "bold 28px 'SS Abigail', serif";
-                ctx.textAlign = "center";
-                ctx.fillText("PASE DE ENTRADA", paseCanvas.width / 2, 100);
-                
-                ctx.font = "24px 'Montserrat', sans-serif";
-                ctx.fillStyle = "#333333";
-                nombres.forEach((nombre, index) => {
-                    ctx.fillText(nombre.toUpperCase(), paseCanvas.width / 2, 300 + (index * 60));
-                });
-                
-                ctx.font = "14px 'Montserrat', sans-serif";
-                ctx.fillStyle = "#d9534f";
-                ctx.fillText("(Aviso: No se encontró la imagen " + imageSrc + ")", paseCanvas.width / 2, 700);
-            };
 
-            img.src = imageSrc;
+                nombres +=
+                    escaparHTML(
+                        respuesta.invitado2
+                    );
+
+            }
+
+
+            document
+            .getElementById(
+                'paseNombres'
+            )
+            .innerHTML =
+                nombres;
+
+
+            document
+            .getElementById(
+                'paseCantidad'
+            )
+            .textContent =
+                respuesta.pases +
+                (
+                    respuesta.pases === 1
+                    ? ' pase'
+                    : ' pases'
+                );
+
+
+            document
+            .getElementById(
+                'paseCodigo'
+            )
+            .textContent =
+                respuesta.codigo;
+
+
+            document
+            .getElementById(
+                'paseContenedor'
+            )
+            .classList
+            .add(
+                'visible'
+            );
+
+
+            document
+            .getElementById(
+                'paseContenedor'
+            )
+            .scrollIntoView({
+                behavior:'smooth',
+                block:'center'
+            });
+
         }
 
-        btnDescargar.addEventListener('click', () => {
-            const dataUrl = paseCanvas.toDataURL('image/jpeg', 0.95);
-            const a = document.createElement('a');
-            a.href = dataUrl;
-            a.download = 'pase_invitacion.jpg';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        });
-    </script>
+        catch(error){
+
+            mostrarMensaje(
+                'No pudimos enviar la confirmación. Intenta nuevamente.',
+                false
+            );
+
+        }
+
+        finally{
+
+            boton.disabled = false;
+
+            boton.textContent =
+                'Enviar confirmación';
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   MENSAJE
+===================================================== */
+
+function mostrarMensaje(
+    texto,
+    correcto
+){
+
+    const mensaje =
+        document.getElementById(
+            'mensaje'
+        );
+
+
+    mensaje.innerHTML =
+        escaparHTML(
+            texto
+        );
+
+
+    mensaje.classList.add(
+        'visible'
+    );
+
+}
+
+
+/* =====================================================
+   ESCAPAR HTML
+===================================================== */
+
+function escaparHTML(
+    texto
+){
+
+    return String(texto || '')
+
+        .replace(
+            /&/g,
+            '&amp;'
+        )
+
+        .replace(
+            /</g,
+            '&lt;'
+        )
+
+        .replace(
+            />/g,
+            '&gt;'
+        )
+
+        .replace(
+            /"/g,
+            '&quot;'
+        )
+
+        .replace(
+            /'/g,
+            '&#039;'
+        );
+
+}
+
+
+/* =====================================================
+   DESCARGAR PASE
+===================================================== */
+
+async function descargarPase(){
+
+    const pase =
+        document.getElementById(
+            'pase'
+        );
+
+
+    if(!pase){
+
+        return;
+
+    }
+
+
+    const canvas =
+        await html2canvas(
+            pase,
+            {
+                scale:3,
+
+                backgroundColor:
+                    '#fffafb',
+
+                useCORS:true
+            }
+        );
+
+
+    const enlace =
+        document.createElement(
+            'a'
+        );
+
+
+    const codigo =
+        document
+        .getElementById(
+            'paseCodigo'
+        )
+        .textContent;
+
+
+    enlace.download =
+        'Pase-' +
+        codigo +
+        '.png';
+
+
+    enlace.href =
+        canvas.toDataURL(
+            'image/png'
+        );
+
+
+    enlace.click();
+
+}
+
+
+/* =====================================================
+   CAMBIAR ASISTENCIA
+===================================================== */
+
+function volverEditar(){
+
+    document
+    .getElementById(
+        'paseContenedor'
+    )
+    .classList
+    .remove(
+        'visible'
+    );
+
+
+    document
+    .getElementById(
+        'mensaje'
+    )
+    .classList
+    .remove(
+        'visible'
+    );
+
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:'smooth'
+
+    });
+
+}
+
+</script>
+
 </body>
 </html>
+
+ 
